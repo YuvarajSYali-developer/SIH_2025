@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>District Director Dashboard - Pune</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo">
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="district-selector">
+                    <select class="form-control district-select">
+                        <option value="pune">📍 Pune District</option>
+                        <option value="mumbai">📍 Mumbai District</option>
+                        <option value="nashik">📍 Nashik District</option>
+                    </select>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="btn btn--primary quick-add-btn">
+                    <span>+ Quick Add Incident</span>
+                </button>
+                <div class="notification-bell">
+                    <span class="bell-icon">🔔</span>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar">DR</div>
+                    <div class="user-info">
+                        <span class="user-name">Dr. Rajesh Kumar</span>
+                        <span class="user-role">District Director</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <!-- Tab Navigation -->
+        <nav class="tab-navigation">
+            <div class="tab-list">
+                <button class="tab-button active" data-tab="summary">Summary</button>
+                <button class="tab-button" data-tab="incidents">Incidents</button>
+                <button class="tab-button" data-tab="vaccination">Vaccination</button>
+                <button class="tab-button" data-tab="visitors">Visitors</button>
+                <button class="tab-button" data-tab="settings">Settings</button>
+            </div>
+            <div class="tab-indicator"></div>
+        </nav>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Summary Tab -->
+            <div id="summary-tab" class="tab-pane active">
+                <div class="summary-grid">
+                    <div class="summary-cards">
+                        <div class="card summary-card">
+                            <div class="card__body">
+                                <div class="summary-card-header">
+                                    <h3>Total Farms Onboarded</h3>
+                                    <div class="trend-indicator positive">+12%</div>
+                                </div>
+                                <div class="summary-value">
+                                    <span class="counter" data-target="3000">0</span>
+                                </div>
+                                <div class="summary-subtitle">Active across 8 blocks</div>
+                            </div>
+                        </div>
+
+                        <div class="card summary-card alert-card">
+                            <div class="card__body">
+                                <div class="summary-card-header">
+                                    <h3>Active Alerts</h3>
+                                    <div class="alert-breakdown">
+                                        <span class="alert-critical">8 Critical</span>
+                                        <span class="alert-medium">18 Medium</span>
+                                    </div>
+                                </div>
+                                <div class="summary-value">
+                                    <span class="counter" data-target="26">0</span>
+                                </div>
+                                <div class="summary-subtitle">Requires immediate attention</div>
+                            </div>
+                        </div>
+
+                        <div class="card summary-card">
+                            <div class="card__body">
+                                <div class="summary-card-header">
+                                    <h3>Pending Incidents</h3>
+                                    <div class="priority-levels">
+                                        <span class="priority-critical">3 Critical</span>
+                                        <span class="priority-high">5 High</span>
+                                        <span class="priority-medium">4 Medium</span>
+                                    </div>
+                                </div>
+                                <div class="summary-value">
+                                    <span class="counter" data-target="12">0</span>
+                                </div>
+                                <div class="summary-subtitle">Avg. resolution time: 4.2 days</div>
+                            </div>
+                        </div>
+
+                        <div class="card summary-card">
+                            <div class="card__body">
+                                <div class="summary-card-header">
+                                    <h3>Vaccination Coverage</h3>
+                                    <div class="progress-ring">
+                                        <svg width="60" height="60">
+                                            <circle cx="30" cy="30" r="25" stroke="var(--color-border)" stroke-width="4" fill="none"/>
+                                            <circle cx="30" cy="30" r="25" stroke="var(--color-primary)" stroke-width="4" fill="none" 
+                                                    stroke-dasharray="157" stroke-dashoffset="26" class="progress-circle"/>
+                                        </svg>
+                                        <div class="progress-text">83.5%</div>
+                                    </div>
+                                </div>
+                                <div class="summary-subtitle">2,505 farms completed</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="map-section">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>District Overview</h3>
+                                <div id="district-map" class="district-map"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blocks-performance">
+                    <div class="card">
+                        <div class="card__body">
+                            <h3>Block Performance</h3>
+                            <div class="blocks-grid" id="blocks-grid">
+                                <!-- Block cards will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Incidents Tab -->
+            <div id="incidents-tab" class="tab-pane">
+                <div class="incidents-header">
+                    <div class="incidents-controls">
+                        <input type="text" class="form-control search-input" placeholder="Search incidents...">
+                        <select class="form-control filter-select">
+                            <option value="all">All Status</option>
+                            <option value="open">Open</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <select class="form-control priority-filter">
+                            <option value="all">All Priorities</option>
+                            <option value="critical">Critical</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                        </select>
+                    </div>
+                    <button class="btn btn--primary" id="log-new-incident-btn">Log New Incident</button>
+                </div>
+
+                <div class="incidents-timeline" id="incidents-timeline">
+                    <!-- Timeline items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Vaccination Tab -->
+            <div id="vaccination-tab" class="tab-pane">
+                <div class="vaccination-overview">
+                    <div class="vaccination-charts" id="vaccination-charts">
+                        <!-- Charts will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="vaccination-details">
+                    <div class="card">
+                        <div class="card__body">
+                            <h3>Block-wise Vaccination Status</h3>
+                            <div class="vaccination-list" id="vaccination-list">
+                                <!-- Vaccination items will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visitors Tab -->
+            <div id="visitors-tab" class="tab-pane">
+                <div class="visitors-header">
+                    <h2>High-Risk Visitor Monitoring</h2>
+                    <div class="visitors-filters">
+                        <select class="form-control">
+                            <option value="all">All Risk Levels</option>
+                            <option value="critical">Critical</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card__body">
+                        <div class="visitors-table-container">
+                            <table class="visitors-table" id="visitors-table">
+                                <thead>
+                                    <tr>
+                                        <th>Farm Name</th>
+                                        <th>Block</th>
+                                        <th>Visitor</th>
+                                        <th>Entry Time</th>
+                                        <th>Risk Status</th>
+                                        <th>Compliance</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="visitors-tbody">
+                                    <!-- Visitor rows will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings-tab" class="tab-pane">
+                <div class="settings-content">
+                    <div class="card">
+                        <div class="card__body">
+                            <h3>Dashboard Settings</h3>
+                            <div class="settings-grid">
+                                <div class="setting-item">
+                                    <label class="form-label">Auto-refresh interval</label>
+                                    <select class="form-control">
+                                        <option value="30">30 seconds</option>
+                                        <option value="60" selected>1 minute</option>
+                                        <option value="300">5 minutes</option>
+                                    </select>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="form-label">Notification preferences</label>
+                                    <div class="checkbox-group">
+                                        <label><input type="checkbox" checked> Critical alerts</label>
+                                        <label><input type="checkbox" checked> New incidents</label>
+                                        <label><input type="checkbox"> Vaccination reminders</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- New Incident Modal -->
+    <div id="new-incident-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Log New Incident</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form class="incident-form">
+                <div class="form-group">
+                    <label class="form-label">Incident Title</label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Block</label>
+                    <select class="form-control" required>
+                        <option value="">Select Block</option>
+                        <option value="haveli">Haveli</option>
+                        <option value="mulshi">Mulshi</option>
+                        <option value="maval">Maval</option>
+                        <option value="bhor">Bhor</option>
+                        <option value="purandar">Purandar</option>
+                        <option value="khed">Khed</option>
+                        <option value="ambegaon">Ambegaon</option>
+                        <option value="junnar">Junnar</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Priority</label>
+                    <select class="form-control" required>
+                        <option value="critical">Critical</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Assigned Officer</label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Due Date</label>
+                    <input type="date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" rows="4" required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn--outline modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn--primary">Log Incident</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

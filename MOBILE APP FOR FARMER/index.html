@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=414, height=896, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kisan Sahayak - किसान सहायक</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- App Container -->
+    <div class="app-container">
+        <!-- Header - 60px height -->
+        <header class="header">
+            <div class="header-content">
+                <div class="farmer-info">
+                    <h1 class="farmer-name">राम कुमार शर्मा</h1>
+                    <p class="farm-name">श्री गणेश पोल्ट्री फार्म</p>
+                </div>
+                <div class="header-actions">
+                    <div class="network-status">
+                        <span class="status-indicator online"></span>
+                        <span class="status-text">Online</span>
+                    </div>
+                    <button class="voice-assistant-btn" id="voiceAssistantBtn">🎤</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content - 828px height -->
+        <main class="main-content">
+            <!-- Dashboard Tab -->
+            <section id="dashboard" class="tab-content active">
+                <!-- Voice Banner - 100px height -->
+                <div class="voice-banner">
+                    <div class="voice-content">
+                        <div class="voice-icon">🎵</div>
+                        <div class="voice-text">
+                            <p class="hindi">नमस्कार राम जी! आज का मौसम अच्छा है।</p>
+                            <p class="english">Good morning Ram ji! Weather is good today.</p>
+                        </div>
+                        <button class="voice-play-btn" id="voicePlayBtn">▶️</button>
+                    </div>
+                </div>
+
+                <!-- Status Cards Grid - 2x2 layout -->
+                <div class="status-section">
+                    <div class="status-grid">
+                        <div class="status-card temperature">
+                            <div class="status-icon">🌡️</div>
+                            <div class="status-info">
+                                <h3>तापमान<br>Temperature</h3>
+                                <p class="status-value">23.5°C</p>
+                                <p class="status-desc">सामान्य - Normal</p>
+                            </div>
+                        </div>
+                        
+                        <div class="status-card vaccination">
+                            <div class="status-icon">💉</div>
+                            <div class="status-info">
+                                <h3>अगला टीकाकरण<br>Next Vaccination</h3>
+                                <p class="status-value">2 दिन - 2 days</p>
+                                <p class="status-desc">Newcastle Disease</p>
+                            </div>
+                        </div>
+                        
+                        <div class="status-card compliance">
+                            <div class="status-icon">🛡️</div>
+                            <div class="status-info">
+                                <h3>अनुपालन<br>Compliance</h3>
+                                <p class="status-value">92%</p>
+                                <p class="status-desc">अच्छा - Good</p>
+                            </div>
+                        </div>
+                        
+                        <div class="status-card market">
+                            <div class="status-icon">₹</div>
+                            <div class="status-info">
+                                <h3>बाजार भाव<br>Market Price</h3>
+                                <p class="status-value">₹85/kg</p>
+                                <p class="status-desc">ऊपर - Up ↗</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather Widget - 100px height -->
+                <div class="weather-widget">
+                    <div class="weather-main">
+                        <div class="weather-left">
+                            <div class="weather-icon">⛅</div>
+                            <div class="weather-temp">28°C</div>
+                        </div>
+                        <div class="weather-right">
+                            <p class="weather-condition">आंशिक बादल<br>Partly Cloudy</p>
+                            <p class="weather-humidity">नमी: 72% - Humidity: 72%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Action Buttons -->
+                <div class="quick-actions">
+                    <button class="quick-action-btn emergency" id="emergencyBtn">
+                        <div class="action-icon">👨‍⚕️</div>
+                        <span>आपातकाल - Emergency</span>
+                    </button>
+                    <button class="quick-action-btn market" id="marketBtn">
+                        <div class="action-icon">📊</div>
+                        <span>बाजार भाव - Market</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Scan Tab -->
+            <section id="scan" class="tab-content">
+                <!-- Camera Area - 300px height -->
+                <div class="camera-container">
+                    <div class="camera-viewfinder">
+                        <div class="scanning-frame">
+                            <div class="corner top-left"></div>
+                            <div class="corner top-right"></div>
+                            <div class="corner bottom-left"></div>
+                            <div class="corner bottom-right"></div>
+                            <div class="scan-line"></div>
+                        </div>
+                        <div class="scan-overlay">
+                            <p>QR/NFC कोड को फ्रेम में रखें</p>
+                            <p>Keep QR/NFC code within frame</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scan Options - 3 buttons -->
+                <div class="scan-options">
+                    <button class="scan-option-btn active" data-scan-type="visitor">
+                        <div class="option-icon">👥</div>
+                        <span>विज़िटर - Visitor</span>
+                    </button>
+                    <button class="scan-option-btn" data-scan-type="equipment">
+                        <div class="option-icon">⚙️</div>
+                        <span>उपकरण - Equipment</span>
+                    </button>
+                    <button class="scan-option-btn" data-scan-type="feed">
+                        <div class="option-icon">🌾</div>
+                        <span>चारा - Feed</span>
+                    </button>
+                </div>
+
+                <!-- Scan Button -->
+                <button class="scan-btn" id="scanBtn">
+                    📷 स्कैन शुरू करें - Start Scan
+                </button>
+
+                <!-- Recent Scans -->
+                <div class="recent-scans-section">
+                    <h3>हाल की स्कैन - Recent Scans</h3>
+                    <div class="recent-scans">
+                        <div class="scan-item success">
+                            <div class="scan-status">✅</div>
+                            <div class="scan-details">
+                                <h4>Feed Supplier</h4>
+                                <p>आज 2:30 PM - Today 2:30 PM</p>
+                            </div>
+                        </div>
+                        <div class="scan-item success">
+                            <div class="scan-status">✅</div>
+                            <div class="scan-details">
+                                <h4>Equipment Check</h4>
+                                <p>आज 10:15 AM - Today 10:15 AM</p>
+                            </div>
+                        </div>
+                        <div class="scan-item failed">
+                            <div class="scan-status">❌</div>
+                            <div class="scan-details">
+                                <h4>Maintenance</h4>
+                                <p>कल 4:45 PM - Yesterday 4:45 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scan Result Modal -->
+                <div class="scan-result-modal hidden" id="scanResultModal">
+                    <div class="modal-content">
+                        <div class="result-icon" id="resultIcon">✅</div>
+                        <h3 id="resultTitle">स्कैन सफल - Scan Successful</h3>
+                        <p id="resultMessage">Visitor approved and logged successfully.</p>
+                        <button class="btn btn--primary" id="closeScanBtn">बंद करें - Close</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Alerts Tab -->
+            <section id="alerts" class="tab-content">
+                <!-- Alert Summary Header -->
+                <div class="alerts-summary">
+                    <h2>अलर्ट - Alerts</h2>
+                    <div class="alert-counts">
+                        <span class="alert-count urgent">1 तत्काल</span>
+                        <span class="alert-count normal">3 सामान्य</span>
+                    </div>
+                </div>
+
+                <!-- Alert Items -->
+                <div class="alerts-list">
+                    <div class="alert-item high-priority">
+                        <div class="alert-icon">💉</div>
+                        <div class="alert-content">
+                            <h3>कल टीकाकरण - Vaccination Tomorrow</h3>
+                            <p>Newcastle Disease vaccination for 500 birds</p>
+                            <span class="alert-time">3 घंटे पहले - 3 hours ago</span>
+                        </div>
+                        <button class="voice-btn" data-alert-type="vaccination">🔊</button>
+                    </div>
+
+                    <div class="alert-item medium-priority">
+                        <div class="alert-icon">🌡️</div>
+                        <div class="alert-content">
+                            <h3>तापमान चेतावनी - Temperature Alert</h3>
+                            <p>Shed temperature slightly high. Consider ventilation.</p>
+                            <span class="alert-time">4 घंटे पहले - 4 hours ago</span>
+                        </div>
+                        <button class="voice-btn" data-alert-type="temperature">🔊</button>
+                    </div>
+
+                    <div class="alert-item medium-priority">
+                        <div class="alert-icon">🛡️</div>
+                        <div class="alert-content">
+                            <h3>विज़िटर अनुपालन - Visitor Compliance</h3>
+                            <p>Reminder: All visitors must scan badge and disinfect</p>
+                            <span class="alert-time">12 घंटे पहले - 12 hours ago</span>
+                        </div>
+                        <button class="voice-btn" data-alert-type="visitor">🔊</button>
+                    </div>
+
+                    <div class="alert-item low-priority">
+                        <div class="alert-icon">₹</div>
+                        <div class="alert-content">
+                            <h3>अच्छा बिक्री दाम - Good Market Price</h3>
+                            <p>Broiler prices up to ₹85/kg. Good time to sell.</p>
+                            <span class="alert-time">8 घंटे पहले - 8 hours ago</span>
+                        </div>
+                        <button class="voice-btn" data-alert-type="market">🔊</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Schedule Tab -->
+            <section id="schedule" class="tab-content">
+                <!-- Next Vaccination Card -->
+                <div class="next-vaccination-card">
+                    <div class="vaccination-date">
+                        <div class="date-number">10</div>
+                        <div class="date-month">Sep</div>
+                        <div class="date-year">2025</div>
+                    </div>
+                    <div class="vaccination-details">
+                        <h3>Newcastle Disease</h3>
+                        <p>500 पक्षी - 500 birds</p>
+                        <p>डॉ. प्रिया पाटिल - Dr. Priya Patil</p>
+                        <p>📞 +91 9876543220</p>
+                    </div>
+                    <button class="call-btn" id="callVetBtn">📞</button>
+                </div>
+
+                <!-- Mini Calendar -->
+                <div class="mini-calendar">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" id="prevMonthBtn">‹</button>
+                        <h3 class="calendar-month">September 2025</h3>
+                        <button class="calendar-nav" id="nextMonthBtn">›</button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="day-header">S</div>
+                        <div class="day-header">M</div>
+                        <div class="day-header">T</div>
+                        <div class="day-header">W</div>
+                        <div class="day-header">T</div>
+                        <div class="day-header">F</div>
+                        <div class="day-header">S</div>
+                        
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        <div class="calendar-day">3</div>
+                        <div class="calendar-day">4</div>
+                        <div class="calendar-day">5</div>
+                        <div class="calendar-day current">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day">8</div>
+                        <div class="calendar-day">9</div>
+                        <div class="calendar-day vaccination-scheduled">10</div>
+                        <div class="calendar-day">11</div>
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day">13</div>
+                        <div class="calendar-day">14</div>
+                        <div class="calendar-day vaccination-scheduled">15</div>
+                        <div class="calendar-day">16</div>
+                        <div class="calendar-day">17</div>
+                        <div class="calendar-day">18</div>
+                        <div class="calendar-day">19</div>
+                        <div class="calendar-day">20</div>
+                        <div class="calendar-day">21</div>
+                        <div class="calendar-day vaccination-scheduled">22</div>
+                        <div class="calendar-day">23</div>
+                        <div class="calendar-day">24</div>
+                        <div class="calendar-day">25</div>
+                        <div class="calendar-day">26</div>
+                        <div class="calendar-day">27</div>
+                        <div class="calendar-day">28</div>
+                        <div class="calendar-day">29</div>
+                        <div class="calendar-day">30</div>
+                    </div>
+                </div>
+
+                <!-- Vaccination History -->
+                <div class="vaccination-history">
+                    <h3>टीकाकरण इतिहास - Vaccination History</h3>
+                    <div class="history-item">
+                        <div class="history-status completed"></div>
+                        <div class="history-details">
+                            <h4>Marek's Disease</h4>
+                            <p>28 Aug 2025 - पूर्ण - Completed</p>
+                        </div>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-status completed"></div>
+                        <div class="history-details">
+                            <h4>IBD</h4>
+                            <p>15 Aug 2025 - पूर्ण - Completed</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- More Tab -->
+            <section id="more" class="tab-content">
+                <!-- Profile Summary -->
+                <div class="profile-summary">
+                    <div class="profile-avatar">👨‍🌾</div>
+                    <div class="profile-info">
+                        <h3>राम कुमार शर्मा</h3>
+                        <p>श्री गणेश पोल्ट्री फार्म</p>
+                        <p>500 पक्षी - 500 birds | ID: MH-PUN-001</p>
+                    </div>
+                </div>
+
+                <!-- More Options Grid -->
+                <div class="more-grid">
+                    <button class="more-item" id="trainingBtn">
+                        <div class="more-icon">📹</div>
+                        <span>प्रशिक्षण वीडियो</span>
+                        <span>Training Videos</span>
+                    </button>
+                    
+                    <button class="more-item" id="marketPricesBtn">
+                        <div class="more-icon">📊</div>
+                        <span>बाजार भाव</span>
+                        <span>Market Prices</span>
+                    </button>
+                    
+                    <button class="more-item" id="weatherBtn">
+                        <div class="more-icon">🌤️</div>
+                        <span>मौसम</span>
+                        <span>Weather</span>
+                    </button>
+                    
+                    <button class="more-item" id="emergencyContactsBtn">
+                        <div class="more-icon">📞</div>
+                        <span>आपातकाल</span>
+                        <span>Emergency</span>
+                    </button>
+                    
+                    <button class="more-item" id="helpBtn">
+                        <div class="more-icon">❓</div>
+                        <span>सहायता</span>
+                        <span>Help</span>
+                    </button>
+                    
+                    <button class="more-item" id="settingsBtn">
+                        <div class="more-icon">🌐</div>
+                        <span>भाषा</span>
+                        <span>Language</span>
+                    </button>
+                    
+                    <button class="more-item" id="profileBtn">
+                        <div class="more-icon">👤</div>
+                        <span>प्रोफाइल</span>
+                        <span>Profile</span>
+                    </button>
+                    
+                    <button class="more-item" id="schemesBtn">
+                        <div class="more-icon">🏛️</div>
+                        <span>सरकारी योजना</span>
+                        <span>Govt Schemes</span>
+                    </button>
+                </div>
+
+                <!-- Chatbot Integration -->
+                <div class="chatbot-integration">
+                    <div class="chatbot-icon">🤖</div>
+                    <div class="chatbot-content">
+                        <h3>कृषि सहायक - Farm Assistant</h3>
+                        <p>अपने प्रश्न पूछें - Ask your questions in Hindi or English</p>
+                        <button class="btn btn--primary" id="chatBtn">चैट शुरू करें - Start Chat</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation - 68px height -->
+        <nav class="bottom-navigation">
+            <button class="nav-item active" data-tab="dashboard">
+                <div class="nav-icon">🏠</div>
+                <span class="nav-label">डैशबोर्ड</span>
+            </button>
+            <button class="nav-item" data-tab="scan">
+                <div class="nav-icon">📷</div>
+                <span class="nav-label">स्कैन</span>
+            </button>
+            <button class="nav-item" data-tab="alerts">
+                <div class="nav-icon">🔔</div>
+                <span class="nav-label">अलर्ट</span>
+            </button>
+            <button class="nav-item" data-tab="schedule">
+                <div class="nav-icon">📅</div>
+                <span class="nav-label">समयसारणी</span>
+            </button>
+            <button class="nav-item" data-tab="more">
+                <div class="nav-icon">⚙️</div>
+                <span class="nav-label">अधिक</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

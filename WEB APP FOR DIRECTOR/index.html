@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Director Dashboard - Maharashtra | Animal Health Management System</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- External Dependencies -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23138B8B'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Maharashtra Animal Health Dashboard</h2>
+            <p>Loading real-time data...</p>
+        </div>
+    </div>
+
+    <!-- Premium Header with Glassmorphism -->
+    <header class="premium-header">
+        <div class="header-glass">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo-section">
+                        <div class="logo-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h1>Maharashtra</h1>
+                            <span>Animal Health Control</span>
+                        </div>
+                    </div>
+                    
+                    <div class="state-selector">
+                        <div class="selector-wrapper">
+                            <div class="state-flag">🇮🇳</div>
+                            <select class="premium-select" id="stateSelector">
+                                <option value="maharashtra">Maharashtra</option>
+                                <option value="gujarat">Gujarat</option>
+                                <option value="karnataka">Karnataka</option>
+                                <option value="tamil-nadu">Tamil Nadu</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-center">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="premium-search" placeholder="Search farms, districts, or outbreaks..." id="globalSearch">
+                        <div class="search-suggestions" id="searchSuggestions"></div>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button class="action-btn emergency-btn" id="emergencyAlert">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Emergency Alert</span>
+                        </button>
+                        
+                        <div class="notification-center">
+                            <button class="notification-btn" id="notificationBtn">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-count">23</span>
+                            </button>
+                            <div class="notification-panel" id="notificationPanel">
+                                <div class="notification-header">
+                                    <h3>Live Updates</h3>
+                                    <button class="btn-clear">Clear All</button>
+                                </div>
+                                <div class="notification-list">
+                                    <div class="notification-item high-priority">
+                                        <div class="notification-icon">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div>
+                                        <div class="notification-content">
+                                            <h4>H5N1 Outbreak Alert</h4>
+                                            <p>Nashik district - 78 farms affected</p>
+                                            <span class="timestamp">2 minutes ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="user-profile">
+                            <div class="profile-avatar">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="Profile">
+                            </div>
+                            <div class="profile-info">
+                                <span class="profile-name">Dr. Rajesh Kumar</span>
+                                <span class="profile-role">State Director</span>
+                            </div>
+                            <button class="profile-dropdown">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard Layout -->
+    <main class="dashboard-main">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-view="overview">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Overview</span>
+                </button>
+                <button class="nav-item" data-view="disease-map">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Disease Hotspots</span>
+                </button>
+                <button class="nav-item" data-view="analytics">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analytics</span>
+                </button>
+                <button class="nav-item" data-view="ai-insights">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Insights</span>
+                </button>
+                <button class="nav-item" data-view="resources">
+                    <i class="fas fa-boxes"></i>
+                    <span>Resources</span>
+                </button>
+                <button class="nav-item" data-view="compliance">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>Compliance</span>
+                </button>
+                <button class="nav-item" data-view="reports">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Reports</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Overview Section -->
+            <section class="view-content active" id="overview">
+                <div class="view-header">
+                    <div class="view-title">
+                        <h2>State Overview</h2>
+                        <p>Real-time monitoring of animal health across Maharashtra</p>
+                    </div>
+                    <div class="view-actions">
+                        <button class="btn-secondary">
+                            <i class="fas fa-download"></i>
+                            Export Data
+                        </button>
+                        <button class="btn-primary" id="quickAction">
+                            <i class="fas fa-plus"></i>
+                            Quick Action
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Premium KPI Cards -->
+                <div class="kpi-grid">
+                    <div class="kpi-card farms-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <div class="kpi-label">Total Farms</div>
+                            <div class="kpi-value" data-count="12490">12,490</div>
+                            <div class="kpi-change positive">
+                                <i class="fas fa-trending-up"></i>
+                                <span>+15.3% growth</span>
+                            </div>
+                        </div>
+                        <div class="kpi-chart">
+                            <canvas id="farmsSparkline"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card alerts-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <div class="kpi-label">Active Alerts</div>
+                            <div class="kpi-value alert-count" data-count="39">39</div>
+                            <div class="kpi-change negative">
+                                <i class="fas fa-trending-down"></i>
+                                <span>-8% from yesterday</span>
+                            </div>
+                        </div>
+                        <div class="kpi-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 35%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card vaccination-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-syringe"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <div class="kpi-label">Vaccination Coverage</div>
+                            <div class="kpi-value" data-count="86.8">86.8%</div>
+                            <div class="kpi-change positive">
+                                <i class="fas fa-trending-up"></i>
+                                <span>+2.1% this week</span>
+                            </div>
+                        </div>
+                        <div class="circular-progress">
+                            <svg viewBox="0 0 36 36">
+                                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                <path class="circle" stroke-dasharray="87, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card compliance-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-shield-check"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <div class="kpi-label">Compliance Rate</div>
+                            <div class="kpi-value" data-count="84.1">84.1%</div>
+                            <div class="kpi-change neutral">
+                                <i class="fas fa-equals"></i>
+                                <span>Stable</span>
+                            </div>
+                        </div>
+                        <div class="compliance-bars">
+                            <div class="bar" style="height: 60%"></div>
+                            <div class="bar" style="height: 80%"></div>
+                            <div class="bar" style="height: 100%"></div>
+                            <div class="bar" style="height: 85%"></div>
+                            <div class="bar" style="height: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- District Summary Cards -->
+                <div class="districts-grid">
+                    <div class="section-header">
+                        <h3>District Performance</h3>
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" data-filter="all">All Districts</button>
+                            <button class="filter-tab" data-filter="high-risk">High Risk</button>
+                            <button class="filter-tab" data-filter="alerts">Active Alerts</button>
+                        </div>
+                    </div>
+                    
+                    <div class="districts-container">
+                        <!-- Districts will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Disease Map -->
+            <section class="view-content" id="disease-map">
+                <div class="view-header">
+                    <div class="view-title">
+                        <h2>Disease Heatmap</h2>
+                        <p>Interactive visualization of disease outbreaks across Maharashtra</p>
+                    </div>
+                    <div class="map-controls">
+                        <div class="layer-controls">
+                            <button class="layer-btn active" data-layer="outbreaks">
+                                <i class="fas fa-virus"></i>
+                                Disease Outbreaks
+                            </button>
+                            <button class="layer-btn" data-layer="farms">
+                                <i class="fas fa-home"></i>
+                                Farm Density
+                            </button>
+                            <button class="layer-btn" data-layer="vaccination">
+                                <i class="fas fa-syringe"></i>
+                                Vaccination Coverage
+                            </button>
+                        </div>
+                        <button class="btn-secondary" id="fullscreenMap">
+                            <i class="fas fa-expand"></i>
+                            Fullscreen
+                        </button>
+                    </div>
+                </div>
+
+                <div class="map-container">
+                    <div id="maharashtraMap" class="interactive-map"></div>
+                    
+                    <div class="map-legend">
+                        <h4>Risk Levels</h4>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <div class="legend-color high-risk"></div>
+                                <span>High Risk (>5 cases)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color medium-risk"></div>
+                                <span>Medium Risk (2-5 cases)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color low-risk"></div>
+                                <span>Low Risk (<2 cases)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color no-risk"></div>
+                                <span>No Active Cases</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="outbreak-details" id="outbreakDetails">
+                        <div class="outbreak-header">
+                            <h3>Active Outbreaks</h3>
+                            <button class="close-details">&times;</button>
+                        </div>
+                        <div class="outbreak-list">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Dashboard -->
+            <section class="view-content" id="analytics">
+                <div class="view-header">
+                    <div class="view-title">
+                        <h2>Advanced Analytics</h2>
+                        <p>Comprehensive insights and trends</p>
+                    </div>
+                    <div class="analytics-filters">
+                        <select class="premium-select">
+                            <option value="7d">Last 7 days</option>
+                            <option value="30d" selected>Last 30 days</option>
+                            <option value="90d">Last 90 days</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Disease Outbreak Trends</h3>
+                            <div class="chart-controls">
+                                <button class="chart-toggle active" data-type="line">Line</button>
+                                <button class="chart-toggle" data-type="bar">Bar</button>
+                            </div>
+                        </div>
+                        <div class="chart-container" style="height: 300px; position: relative;">
+                            <canvas id="outbreakTrendsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Resource Allocation</h3>
+                        </div>
+                        <div class="chart-container" style="height: 300px; position: relative;">
+                            <canvas id="resourceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Vaccination Progress</h3>
+                        </div>
+                        <div class="chart-container" style="height: 300px; position: relative;">
+                            <canvas id="vaccinationChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Market Intelligence</h3>
+                        </div>
+                        <div class="market-grid">
+                            <div class="market-item">
+                                <div class="market-icon">🐔</div>
+                                <div class="market-info">
+                                    <span class="commodity">Broiler Chicken</span>
+                                    <span class="price">₹180/kg</span>
+                                    <span class="change positive">+8%</span>
+                                </div>
+                            </div>
+                            <div class="market-item">
+                                <div class="market-icon">🥚</div>
+                                <div class="market-info">
+                                    <span class="commodity">Layer Eggs</span>
+                                    <span class="price">₹6.2/piece</span>
+                                    <span class="change negative">-0.3%</span>
+                                </div>
+                            </div>
+                            <div class="market-item">
+                                <div class="market-icon">🐷</div>
+                                <div class="market-info">
+                                    <span class="commodity">Pork</span>
+                                    <span class="price">₹420/kg</span>
+                                    <span class="change positive">+15%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Insights Panel -->
+            <section class="view-content" id="ai-insights">
+                <div class="view-header">
+                    <div class="view-title">
+                        <h2>AI-Powered Insights</h2>
+                        <p>Machine learning recommendations and predictions</p>
+                    </div>
+                    <div class="ai-status">
+                        <div class="ai-indicator">
+                            <div class="ai-pulse"></div>
+                            <span>AI Engine Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-message ai-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="sender">AI Assistant</span>
+                                    <span class="timestamp">Now</span>
+                                </div>
+                                <div class="message-text">
+                                    Based on current patterns, I recommend deploying 3 additional field teams to Nashik district. The AI model predicts a 40% increase in outbreak risk due to seasonal patterns and low PPE compliance rates.
+                                </div>
+                                <div class="confidence-score">
+                                    <span>Confidence: <strong>91%</strong></span>
+                                </div>
+                                <div class="message-actions">
+                                    <button class="action-btn accept">
+                                        <i class="fas fa-check"></i>
+                                        Implement
+                                    </button>
+                                    <button class="action-btn dismiss">
+                                        <i class="fas fa-times"></i>
+                                        Dismiss
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-recommendations">
+                        <div class="recommendations-header">
+                            <h3>Priority Recommendations</h3>
+                            <div class="priority-filters">
+                                <button class="priority-filter active" data-priority="all">All</button>
+                                <button class="priority-filter" data-priority="high">High</button>
+                                <button class="priority-filter" data-priority="medium">Medium</button>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendations-list">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resource Allocation -->
+            <section class="view-content" id="resources">
+                <div class="view-header">
+                    <div class="view-title">
+                        <h2>Resource Management</h2>
+                        <p>Track and allocate vaccines, teams, and equipment</p>
+                    </div>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="card-header">
+                            <h3>Vaccine Inventory</h3>
+                            <div class="stock-status low">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Low Stock Alert
+                            </div>
+                        </div>
+                        <div class="inventory-items">
+                            <div class="inventory-item">
+                                <span class="vaccine-name">FMD Vaccine</span>
+                                <div class="stock-bar">
+                                    <div class="stock-fill" style="width: 25%"></div>
+                                </div>
+                                <span class="stock-count">2,500 doses</span>
+                            </div>
+                            <div class="inventory-item">
+                                <span class="vaccine-name">H5N1 Vaccine</span>
+                                <div class="stock-bar">
+                                    <div class="stock-fill" style="width: 60%"></div>
+                                </div>
+                                <span class="stock-count">15,000 doses</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="card-header">
+                            <h3>Field Teams Deployment</h3>
+                        </div>
+                        <div class="teams-map">
+                            <!-- Mini map showing team locations -->
+                            <div class="teams-list">
+                                <div class="team-item">
+                                    <div class="team-icon">👥</div>
+                                    <div class="team-info">
+                                        <span class="team-name">Team Alpha - Mumbai</span>
+                                        <span class="team-status active">Active (3/4 capacity)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Compliance Monitoring -->
+            <section class="view-content" id="compliance">
+                <div class="view-header">
+                    <div class="view-title">
+                        <h2>Compliance Monitoring</h2>
+                        <p>Track regulatory compliance across all districts</p>
+                    </div>
+                </div>
+
+                <div class="compliance-dashboard">
+                    <div class="compliance-overview">
+                        <div class="compliance-metric">
+                            <div class="metric-icon">
+                                <i class="fas fa-mask"></i>
+                            </div>
+                            <div class="metric-data">
+                                <span class="metric-title">PPE Compliance</span>
+                                <span class="metric-value">84%</span>
+                                <div class="metric-trend">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>+2% this week</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="non-compliant-farms">
+                        <h3>Farms Requiring Attention</h3>
+                        <div class="farms-table">
+                            <div class="table-header">
+                                <span>Farm Name</span>
+                                <span>District</span>
+                                <span>Compliance Score</span>
+                                <span>Last Audit</span>
+                                <span>Actions</span>
+                            </div>
+                            <!-- Table rows populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Generator -->
+            <section class="view-content" id="reports">
+                <div class="view-header">
+                    <div class="view-title">
+                        <h2>Report Generator</h2>
+                        <p>Generate and export comprehensive reports</p>
+                    </div>
+                </div>
+
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>Monthly Summary Report</h3>
+                        <p>Comprehensive overview of all activities</p>
+                        <button class="btn-primary generate-report" data-type="monthly">
+                            Generate Report
+                        </button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-virus"></i>
+                        </div>
+                        <h3>Disease Outbreak Analysis</h3>
+                        <p>Detailed analysis of current and past outbreaks</p>
+                        <button class="btn-primary generate-report" data-type="disease">
+                            Generate Report
+                        </button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-syringe"></i>
+                        </div>
+                        <h3>Vaccination Coverage Report</h3>
+                        <p>Vaccination progress across all districts</p>
+                        <button class="btn-primary generate-report" data-type="vaccination">
+                            Generate Report
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Real-time Data Feed -->
+    <div class="live-feed" id="liveFeed">
+        <div class="feed-header">
+            <div class="live-indicator">
+                <div class="pulse-dot"></div>
+                <span>LIVE</span>
+            </div>
+            <button class="feed-toggle" id="feedToggle">
+                <i class="fas fa-chevron-up"></i>
+            </button>
+        </div>
+        <div class="feed-content">
+            <div class="feed-item">
+                <div class="feed-time">14:23</div>
+                <div class="feed-message">New vaccination completed at Sunrise Poultry Farm, Pune</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Container -->
+    <div id="modalContainer" class="modal-overlay"></div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>VetCare Mobile - Farm Visit Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">VetCare</h1>
+                <div class="header-info">
+                    <span class="date">Saturday, Sep 06, 2025</span>
+                    <span class="weather">28°C <i class="fas fa-sun"></i></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Tab Content -->
+            <div id="home-tab" class="tab-content active">
+                <div class="welcome-section">
+                    <h2>Welcome back, Dr. Priya Sharma</h2>
+                    <p class="subtitle">Ready for today's farm visits</p>
+                </div>
+
+                <!-- Today's Visits -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-calendar-day"></i> Today's Visits</h3>
+                    </div>
+                    <div id="visits-list" class="visits-list">
+                        <!-- Visits will be populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    </div>
+                    <div class="quick-actions-grid">
+                        <button class="quick-action-btn" data-action="new-case">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Log New Case</span>
+                        </button>
+                        <button class="quick-action-btn" data-action="alerts">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>View Alerts</span>
+                        </button>
+                        <button class="quick-action-btn" data-action="scan">
+                            <i class="fas fa-qrcode"></i>
+                            <span>Scan Badge</span>
+                        </button>
+                        <button class="quick-action-btn" data-action="emergency">
+                            <i class="fas fa-phone"></i>
+                            <span>Emergency</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Key Metrics -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-chart-line"></i> Today's Metrics</h3>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">8</div>
+                            <div class="metric-label">Cases Handled</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">15</div>
+                            <div class="metric-label">Farms This Week</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">3</div>
+                            <div class="metric-label">Pending Vaccines</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cases Tab Content -->
+            <div id="cases-tab" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-clipboard-list"></i> Active Cases</h2>
+                </div>
+                <div id="cases-list" class="cases-list">
+                    <!-- Cases will be populated by JS -->
+                </div>
+                <button class="fab" id="add-case-fab">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+            <!-- Diagnostics Tab Content -->
+            <div id="diagnostics-tab" class="tab-content">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-microscope"></i> Syndromic Surveillance</h3>
+                    </div>
+                    <div class="surveillance-widget">
+                        <p>Quick outbreak reporting for suspected cases</p>
+                        <button class="btn btn--secondary surveillance-btn">
+                            <i class="fas fa-flag"></i> Report Suspected Outbreak
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-camera"></i> Sample Documentation</h3>
+                    </div>
+                    <div class="camera-section">
+                        <button class="btn btn--primary capture-btn">
+                            <i class="fas fa-camera"></i> Capture Sample Image
+                        </button>
+                        <div class="image-preview hidden" id="image-preview">
+                            <img id="captured-image" src="" alt="Captured sample">
+                            <button class="btn btn--outline send-lab-btn">
+                                <i class="fas fa-paper-plane"></i> Send to Lab
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-book-medical"></i> Reference Tools</h3>
+                    </div>
+                    <div class="reference-tools">
+                        <button class="reference-btn">
+                            <i class="fas fa-search"></i> Disease Guide
+                        </button>
+                        <button class="reference-btn">
+                            <i class="fas fa-stethoscope"></i> Symptom Checker
+                        </button>
+                        <button class="reference-btn">
+                            <i class="fas fa-syringe"></i> Vaccination Protocols
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications Tab Content -->
+            <div id="notifications-tab" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-bell"></i> Notifications</h2>
+                    <div class="notification-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="critical">Critical</button>
+                        <button class="filter-btn" data-filter="high">High</button>
+                    </div>
+                </div>
+                <div id="notifications-list" class="notifications-list">
+                    <!-- Notifications will be populated by JS -->
+                </div>
+            </div>
+
+            <!-- Profile Tab Content -->
+            <div id="profile-tab" class="tab-content">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h2>Dr. Priya Sharma</h2>
+                        <p>License: VET2023045</p>
+                        <p>Specialization: Poultry & Swine Health</p>
+                        <p>District: Mumbai</p>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-chart-bar"></i> Performance Metrics</h3>
+                    </div>
+                    <div class="performance-metrics">
+                        <div class="metric-row">
+                            <span>Cases This Month</span>
+                            <span class="metric-value">124</span>
+                        </div>
+                        <div class="metric-row">
+                            <span>Avg Response Time</span>
+                            <span class="metric-value">2.3 hours</span>
+                        </div>
+                        <div class="metric-row">
+                            <span>Satisfaction Rating</span>
+                            <span class="metric-value">4.7 ⭐</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-cog"></i> Settings</h3>
+                    </div>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <i class="fas fa-bell"></i>
+                            <span>Notification Preferences</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="setting-item">
+                            <i class="fas fa-language"></i>
+                            <span>Language Selection</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="setting-item">
+                            <i class="fas fa-wifi"></i>
+                            <span>Offline Sync Settings</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="setting-item">
+                            <i class="fas fa-cloud"></i>
+                            <span>Data Backup</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-tab="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-btn" data-tab="cases">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Cases</span>
+            </button>
+            <button class="nav-btn" data-tab="diagnostics">
+                <i class="fas fa-microscope"></i>
+                <span>Diagnostics</span>
+            </button>
+            <button class="nav-btn" data-tab="notifications">
+                <i class="fas fa-bell"></i>
+                <span>Alerts</span>
+            </button>
+            <button class="nav-btn" data-tab="profile">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Case Detail Modal -->
+    <div class="modal hidden" id="case-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Case Details</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Farm Name</label>
+                    <input type="text" class="form-control" id="case-farm" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Symptoms</label>
+                    <div class="symptom-checklist" id="symptom-checklist">
+                        <label><input type="checkbox" value="fever"> Fever</label>
+                        <label><input type="checkbox" value="coughing"> Coughing</label>
+                        <label><input type="checkbox" value="appetite"> Reduced Appetite</label>
+                        <label><input type="checkbox" value="diarrhea"> Diarrhea</label>
+                        <label><input type="checkbox" value="lesions"> Skin Lesions</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Diagnosis</label>
+                    <select class="form-control" id="case-diagnosis">
+                        <option value="">Select Diagnosis</option>
+                        <option value="avian-influenza">Avian Influenza</option>
+                        <option value="asf">African Swine Fever</option>
+                        <option value="newcastle">Newcastle Disease</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Treatment Prescribed</label>
+                    <textarea class="form-control" id="case-treatment" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Follow-up Date</label>
+                    <input type="date" class="form-control" id="case-followup">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--outline" id="cancel-case">Cancel</button>
+                <button class="btn btn--primary" id="save-case">Save Case</button>
+                <button class="btn btn--secondary" id="generate-certificate">Generate Certificate</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
