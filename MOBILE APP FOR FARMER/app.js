@@ -1,30 +1,54 @@
 // Smallholder Farmer Mobile App - JavaScript
 // Optimized for 414x896 pixel frame - Fixed with Event Listeners
 
-// App Data and State Management
+// App Data and State Management - Karnataka Region
 const appData = {
   farmer: {
-    name: "राम कुमार शर्मा",
-    name_english: "Ram Kumar Sharma",
-    farm_name: "श्री गणेश पोल्ट्री फार्म",
-    farm_name_english: "Shri Ganesh Poultry Farm",
-    farm_id: "MH-PUN-001",
-    phone: "+91 9876543210",
-    location: "Haveli Block, Pune",
-    animal_count: 500
+    name: "राजेश कुमार गौड़ा",
+    name_english: "Rajesh Kumar Gowda",
+    name_kannada: "ರಾಜೇಶ್ ಕುಮಾರ್ ಗೌಡ",
+    farm_name: "श्री लक्ष्मी पोल्ट्री फार्म",
+    farm_name_english: "Sri Lakshmi Poultry Farm",
+    farm_name_kannada: "ಶ್ರೀ ಲಕ್ಷ್ಮೀ ಪೋಲ್ಟ್ರಿ ಫಾರ್ಮ್",
+    farm_id: "KA-BLR-002",
+    phone: "+91 9845123456",
+    location: "Devanahalli Taluk, Bengaluru Rural",
+    location_kannada: "ದೇವನಹಳ್ಳಿ ತಾಲೂಕು, ಬೆಂಗಳೂರು ಗ್ರಾಮೀಣ",
+    animal_count: 750,
+    district: "Bengaluru Rural",
+    state: "Karnataka",
+    pin_code: "562110"
   },
   emergency_contacts: [
     {
-      name: "Dr. Priya Patil",
+      name: "Dr. Suresh Nayak",
+      name_kannada: "ಡಾ. ಸುರೇಶ್ ನಾಯಕ್",
       role: "Veterinarian", 
-      phone: "+91 9876543220"
+      phone: "+91 9845234567",
+      location: "Devanahalli"
     },
     {
-      name: "Animal Hospital",
+      name: "Karnataka Animal Hospital",
+      name_kannada: "ಕರ್ನಾಟಕ ಪಶು ಆಸ್ಪತ್ರೆ",
       role: "Emergency",
-      phone: "+91 9876543230"
+      phone: "+91 9845345678",
+      location: "Bengaluru"
+    },
+    {
+      name: "KVAFSU Helpline",
+      name_kannada: "ಕೆವಿಎಎಫ್ಎಸ್ಯು ಸಹಾಯವಾಣಿ",
+      role: "University Support",
+      phone: "+91 9845456789",
+      location: "Bidar"
     }
-  ]
+  ],
+  market_data: {
+    current_price: 88,
+    currency: "₹/kg",
+    trend: "up",
+    market_location: "KR Market, Bengaluru",
+    last_updated: "Today 3:00 PM"
+  }
 };
 
 // Current app state
@@ -88,10 +112,13 @@ function setupEventListeners() {
     voiceAssistantBtn.addEventListener('click', activateVoiceAssistant);
   }
   
-  // Voice Play Button
+  // Voice Play Button with Ripple Effect
   const voicePlayBtn = document.getElementById('voicePlayBtn');
   if (voicePlayBtn) {
-    voicePlayBtn.addEventListener('click', playVoice);
+    voicePlayBtn.addEventListener('click', function(e) {
+      createRippleEffect(e, this);
+      playVoice();
+    });
   }
   
   // Emergency Button
@@ -298,24 +325,57 @@ function playVoice() {
   }
   
   if (isVoicePlaying) {
-    playBtn.innerHTML = '▶️';
+    playBtn.innerHTML = '<i class="fas fa-play"></i>';
     isVoicePlaying = false;
     showToast('⏹️ आवाज रुक गई - Voice stopped', 'info');
   } else {
-    playBtn.innerHTML = '⏸️';
+    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
     isVoicePlaying = true;
     showToast('🎵 आवाज चल रही है - Playing voice message', 'success');
     
+    // Add playing animation to voice icon
+    const voiceIcon = document.querySelector('.voice-icon.animated');
+    if (voiceIcon) {
+      voiceIcon.style.animation = 'voicePulse 1s infinite';
+    }
+    
     setTimeout(() => {
       if (isVoicePlaying && playBtn) {
-        playBtn.innerHTML = '▶️';
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
         isVoicePlaying = false;
         showToast('✅ आवाज पूरी हुई - Voice message complete', 'info');
+        
+        // Reset voice icon animation
+        if (voiceIcon) {
+          voiceIcon.style.animation = 'voicePulse 2s infinite';
+        }
       }
     }, 5000);
   }
   
   simulateHapticFeedback();
+}
+
+// Create ripple effect for buttons
+function createRippleEffect(event, element) {
+  const ripple = element.querySelector('.play-ripple');
+  if (!ripple) return;
+  
+  const rect = element.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  const x = event.clientX - rect.left - size / 2;
+  const y = event.clientY - rect.top - size / 2;
+  
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = x + 'px';
+  ripple.style.top = y + 'px';
+  
+  ripple.classList.remove('animate');
+  ripple.classList.add('animate');
+  
+  setTimeout(() => {
+    ripple.classList.remove('animate');
+  }, 600);
 }
 
 function playAlertVoice(alertType) {

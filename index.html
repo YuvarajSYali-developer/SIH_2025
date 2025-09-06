@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Health Management System - Maharashtra | SIH 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="landing-style.css">
+<body class="antialiased">
+    <!-- Hero Background Image -->
+    <div class="hero-bg"></div>
+    
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black bg-opacity-20">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo Section -->
+                <div class="flex items-center space-x-3">
+                    <div class="logo-icon">
+                        <i class="fas fa-shield-virus text-2xl text-blue-400"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1 class="text-xl font-bold text-white">AHMS</h1>
+                        <p class="text-xs text-gray-300 -mt-1">Animal Health Management</p>
+                    </div>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-white hover:text-blue-400 transition-colors">Home</a>
+                    <a href="#directors" class="nav-link text-white hover:text-blue-400 transition-colors">Directors</a>
+                    <a href="#deputy-directors" class="nav-link text-white hover:text-blue-400 transition-colors">Districts</a>
+                    <a href="#mobile-apps" class="nav-link text-white hover:text-blue-400 transition-colors">Mobile Apps</a>
+                    <a href="#about" class="nav-link text-white hover:text-blue-400 transition-colors">About</a>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex items-center space-x-4">
+                    <div class="live-status hidden sm:flex items-center space-x-2">
+                        <div class="pulse-dot"></div>
+                        <span class="text-sm text-green-400 font-medium">LIVE</span>
+                    </div>
+                    <button class="emergency-btn bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full transition-colors flex items-center space-x-2">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span class="hidden sm:inline">Emergency</span>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden mobile-menu-btn text-white hover:text-blue-400">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="#home" class="nav-link text-white hover:text-blue-400 py-2">Home</a>
+                    <a href="#directors" class="nav-link text-white hover:text-blue-400 py-2">Directors</a>
+                    <a href="#deputy-directors" class="nav-link text-white hover:text-blue-400 py-2">Districts</a>
+                    <a href="#mobile-apps" class="nav-link text-white hover:text-blue-400 py-2">Mobile Apps</a>
+                    <a href="#about" class="nav-link text-white hover:text-blue-400 py-2">About</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Landing Page Content -->
+    <div id="home" class="min-h-screen flex flex-col justify-center items-center relative z-10 p-4 pt-24">
+        <header class="text-center mb-20 space-y-8 hero-text-animation max-w-5xl mx-auto">
+            <div class="hero-badge mb-8">
+                <i class="fas fa-award mr-2"></i>
+                <span>SIH 2025 - Problem Statement 25006</span>
+            </div>
+            
+            <!-- Enhanced Hero Title -->
+            <div class="hero-title-container">
+                <h1 class="hero-main-title">
+                    <span class="title-line block">Revolutionary</span>
+                    <span class="title-line-highlight block text-gradient">Animal Health</span>
+                    <span class="title-line block">Management System</span>
+                </h1>
+                
+                <!-- Animated Subtitle -->
+                <div class="hero-subtitle-container mt-8">
+                    <p class="hero-subtitle text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                        Advanced AI-powered surveillance system for comprehensive livestock disease monitoring, 
+                        prevention, and rapid response across <span class="text-yellow-400 font-semibold">Maharashtra</span>
+                    </p>
+                </div>
+                
+                <!-- Hero Features -->
+                <div class="hero-features mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                    <div class="feature-item">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-brain text-3xl text-blue-400"></i>
+                        </div>
+                        <h3 class="feature-title text-lg font-semibold text-white mb-2">AI-Powered</h3>
+                        <p class="feature-desc text-gray-400 text-sm">Smart disease prediction and outbreak prevention</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-mobile-alt text-3xl text-green-400"></i>
+                        </div>
+                        <h3 class="feature-title text-lg font-semibold text-white mb-2">Mobile-First</h3>
+                        <p class="feature-desc text-gray-400 text-sm">Field-ready apps for farmers and veterinarians</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-shield-alt text-3xl text-purple-400"></i>
+                        </div>
+                        <h3 class="feature-title text-lg font-semibold text-white mb-2">Real-time</h3>
+                        <p class="feature-desc text-gray-400 text-sm">24/7 monitoring and instant alert system</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Section -->
+        <div class="stats-grid mb-16">
+            <div class="stat-card">
+                <div class="stat-value" data-target="12490">0</div>
+                <div class="stat-label">Registered Farms</div>
+                <div class="stat-change positive">
+                    <i class="fas fa-trending-up"></i>
+                    <span>+15.3% growth</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" data-target="86.8">0</div>
+                <div class="stat-label">% Vaccination Coverage</div>
+                <div class="stat-change positive">
+                    <i class="fas fa-trending-up"></i>
+                    <span>+2.1% this week</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value alert-count" data-target="39">0</div>
+                <div class="stat-label">Active Alerts</div>
+                <div class="stat-change negative">
+                    <i class="fas fa-trending-down"></i>
+                    <span>-8% from yesterday</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" data-target="99.2">0</div>
+                <div class="stat-label">% System Uptime</div>
+                <div class="stat-change stable">
+                    <i class="fas fa-equals"></i>
+                    <span>Stable</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <nav class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8 mb-16">
+            <a href="WEB APP FOR DIRECTOR/index.html" class="nav-button directors-btn">
+                <span class="relative z-10">
+                    <i class="fas fa-crown mr-2"></i>
+                    State Directors
+                </span>
+                <span class="button-overlay"></span>
+            </a>
+            <a href="WEB APP OF DISTRICT DIRECTOR/index.html" class="nav-button deputy-btn">
+                <span class="relative z-10">
+                    <i class="fas fa-chart-line mr-2"></i>
+                    District Directors
+                </span>
+                <span class="button-overlay"></span>
+            </a>
+            <a href="MOBIILE APP OF VET/index.html" class="nav-button vet-btn">
+                <span class="relative z-10">
+                    <i class="fas fa-stethoscope mr-2"></i>
+                    Vet Mobile App
+                </span>
+                <span class="button-overlay"></span>
+            </a>
+            <a href="MOBILE APP FOR FARMER/index.html" class="nav-button farmer-btn">
+                <span class="relative z-10">
+                    <i class="fas fa-seedling mr-2"></i>
+                    Farmer Portal
+                </span>
+                <span class="button-overlay"></span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Directors Dashboard Section -->
+    <section id="directors" class="parallax-section pt-24 pb-32 overflow-hidden min-h-screen">
+        <div class="parallax-bg directors-bg"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex items-center justify-between mb-16 fade-in">
+                <h2 class="text-4xl lg:text-5xl font-bold text-white">State Directors Dashboard</h2>
+                <div class="flex items-center space-x-4">
+                    <span class="text-green-400 flex items-center">
+                        <i class="fas fa-circle mr-2 text-xs animate-pulse"></i>
+                        Real-time
+                    </span>
+                    <button class="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-300">Quick Report</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 fade-in">
+                <div class="animated-card p-6 bg-gray-800 bg-opacity-80 rounded-2xl border border-gray-700">
+                    <h3 class="text-lg font-semibold text-gray-300 mb-2">Total Farms</h3>
+                    <p class="text-4xl font-extrabold text-white">12,490</p>
+                    <p class="text-sm text-green-400 mt-2 flex items-center">
+                        <i class="fas fa-trending-up mr-1"></i>
+                        +15.3% this month
+                    </p>
+                </div>
+                <div class="animated-card p-6 bg-gray-800 bg-opacity-80 rounded-2xl border border-gray-700">
+                    <h3 class="text-lg font-semibold text-gray-300 mb-2">Active Alerts</h3>
+                    <p class="text-4xl font-extrabold text-red-400">39</p>
+                    <p class="text-sm text-red-400 mt-2 flex items-center">
+                        <i class="fas fa-trending-down mr-1"></i>
+                        -8% from yesterday
+                    </p>
+                </div>
+                <div class="animated-card p-6 bg-gray-800 bg-opacity-80 rounded-2xl border border-gray-700">
+                    <h3 class="text-lg font-semibold text-gray-300 mb-2">Vaccination Coverage</h3>
+                    <p class="text-4xl font-extrabold text-blue-400">86.8%</p>
+                    <p class="text-sm text-blue-400 mt-2 flex items-center">
+                        <i class="fas fa-chart-pie mr-1"></i>
+                        Targeting 95%
+                    </p>
+                </div>
+                <div class="animated-card p-6 bg-gray-800 bg-opacity-80 rounded-2xl border border-gray-700">
+                    <h3 class="text-lg font-semibold text-gray-300 mb-2">Compliance Rate</h3>
+                    <p class="text-4xl font-extrabold text-white">84.1%</p>
+                    <p class="text-sm text-gray-400 mt-2 flex items-center">
+                        <i class="fas fa-equals mr-1"></i>
+                        Stable
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- District Directors Section -->
+    <section id="deputy-directors" class="parallax-section pt-24 pb-32 overflow-hidden min-h-screen">
+        <div class="parallax-bg deputy-bg"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex items-center justify-between mb-16 fade-in">
+                <h2 class="text-4xl lg:text-5xl font-bold text-white">District Directors Dashboard</h2>
+                <div class="flex items-center space-x-4">
+                    <span class="text-yellow-400 flex items-center">
+                        <i class="fas fa-play mr-1"></i>
+                        Actionable Insights
+                    </span>
+                    <button class="px-4 py-2 bg-yellow-500 text-gray-900 rounded-full hover:bg-yellow-600 transition-colors duration-300">Log Incident</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in">
+                <div class="animated-card bg-gray-800 bg-opacity-80 rounded-2xl border border-gray-700 p-6">
+                    <h3 class="text-lg font-semibold text-gray-300 mb-4">Incidents Timeline</h3>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="flex items-center space-x-3">
+                            <span class="flex-shrink-0 h-3 w-3 bg-red-500 rounded-full"></span>
+                            <div>
+                                <p class="text-white">Avian Influenza H5N1 Investigation</p>
+                                <p>Bhor, Pune - Critical Priority</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <span class="flex-shrink-0 h-3 w-3 bg-yellow-500 rounded-full"></span>
+                            <div>
+                                <p class="text-white">PPE Compliance Audit</p>
+                                <p>Mulshi, Pune - High Priority</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <span class="flex-shrink-0 h-3 w-3 bg-green-500 rounded-full"></span>
+                            <div>
+                                <p class="text-white">Vaccination Delay Investigation</p>
+                                <p>Haveli, Pune - Completed</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="animated-card bg-gray-800 bg-opacity-80 rounded-2xl border border-gray-700 p-6">
+                    <h3 class="text-lg font-semibold text-gray-300 mb-4">High-Risk Visitors</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 text-sm text-gray-400">
+                            <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                            <p class="text-white font-medium">Sunrise Poultry Farm</p>
+                            <p>- Feed Supply Vendor</p>
+                        </div>
+                        <div class="flex items-center space-x-3 text-sm text-gray-400">
+                            <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                            <p class="text-white font-medium">Modern Poultry Unit</p>
+                            <p>- Maintenance Crew</p>
+                        </div>
+                        <div class="flex items-center space-x-3 text-sm text-gray-400">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <p class="text-white font-medium">Heritage Broilers</p>
+                            <p>- Quality Auditor</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="animated-card bg-gray-800 bg-opacity-80 rounded-2xl border border-gray-700 p-6">
+                    <h3 class="text-lg font-semibold text-gray-300 mb-4">Block Performance</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center justify-between text-sm">
+                            <span class="text-white">Haveli</span>
+                            <span class="text-green-400">89% Vaccinated</span>
+                        </li>
+                        <li class="flex items-center justify-between text-sm">
+                            <span class="text-white">Bhor</span>
+                            <span class="text-red-400">68% Vaccinated</span>
+                        </li>
+                        <li class="flex items-center justify-between text-sm">
+                            <span class="text-white">Maval</span>
+                            <span class="text-green-400">94% Vaccinated</span>
+                        </li>
+                        <li class="flex items-center justify-between text-sm">
+                            <span class="text-white">Junnar</span>
+                            <span class="text-yellow-400">73% Vaccinated</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile Apps Preview Section -->
+    <section id="mobile-apps" class="pt-24 pb-32 bg-gray-900 bg-opacity-90 overflow-hidden min-h-screen">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center fade-in max-w-4xl mx-auto mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold text-white mb-4">Mobile Applications</h2>
+                <p class="text-lg text-gray-400 mb-12">Streamlined and efficient platforms for veterinarians and farmers to manage their operations on the go.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="mobile-app-preview fade-in">
+                    <h3 class="text-2xl font-bold text-white mb-4">Veterinarian App</h3>
+                    <p class="text-gray-400 mb-6">Comprehensive case management, diagnostics, and field visit tools for veterinary professionals.</p>
+                    <div class="mobile-frame">
+                        <div class="mobile-screen">
+                            <iframe src="MOBIILE APP OF VET/index.html" class="w-full h-full border-0"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-app-preview fade-in">
+                    <h3 class="text-2xl font-bold text-white mb-4">Farmer Portal</h3>
+                    <p class="text-gray-400 mb-6">User-friendly interface with Hindi/English support, voice assistance, and real-time farm monitoring.</p>
+                    <div class="mobile-frame">
+                        <div class="mobile-screen">
+                            <iframe src="MOBILE APP FOR FARMER/index.html" class="w-full h-full border-0"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 text-center text-gray-500 text-sm bg-gray-950 bg-opacity-90 relative z-10">
+        &copy; 2025 Animal Health Management System - Maharashtra. SIH 2025 Winner.
+    </footer>
+
+    <script src="landing-script.js"></script>
+</body>
+</html>
