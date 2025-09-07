@@ -79,11 +79,10 @@
   --color-warning-rgb: 168, 75, 47;
   --color-info-rgb: 98, 108, 113;
 
-  /* Typography */
-  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
-    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo,
-    Monaco, Consolas, monospace;
+  /* Typography - Updated to use unified design system */
+  --font-family-base: var(--font-family-sans);
+  --font-family-mono: var(--font-family-mono);
+  --font-family-display: var(--font-family-display);
   --font-size-xs: 11px;
   --font-size-sm: 12px;
   --font-size-base: 14px;
@@ -132,10 +131,10 @@
   --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15),
     inset 0 -1px 0 rgba(0, 0, 0, 0.03);
 
-  /* Animation */
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Animation - Updated to use unified design system */
+  --duration-fast: var(--duration-150);
+  --duration-normal: var(--duration-300);
+  --ease-standard: var(--ease-out);
 
   /* Layout */
   --container-sm: 640px;
@@ -861,7 +860,7 @@ select.form-control {
 /* Enhanced Voice Banner - Premium Design */
 .voice-banner {
   position: relative;
-  height: 100px;
+  height: 120px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: var(--radius-lg);
   padding: var(--space-16);
@@ -869,14 +868,22 @@ select.form-control {
   display: flex;
   align-items: center;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.25), 
+              0 0 20px rgba(118, 75, 162, 0.15);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .voice-banner.premium {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-  background-size: 200% 200%;
-  animation: gradientShift 8s ease-in-out infinite;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 30%, #f093fb 60%, #43e97b 100%);
+  background-size: 300% 300%;
+  animation: gradientShift 10s ease-in-out infinite;
+}
+
+.voice-banner:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 16px 48px rgba(102, 126, 234, 0.3), 
+              0 0 30px rgba(118, 75, 162, 0.2);
 }
 
 @keyframes gradientShift {
@@ -895,33 +902,47 @@ select.form-control {
 
 .voice-wave {
   position: absolute;
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.1);
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 70%);
   border-radius: 50%;
-  left: 20%;
-  top: 20%;
-  animation: voiceWave 3s ease-in-out infinite;
+  left: 15%;
+  top: 10%;
+  animation: voiceWave 4s ease-in-out infinite;
+  filter: blur(1px);
 }
 
 .voice-wave:nth-child(2) {
-  animation-delay: 1s;
-  background: rgba(255, 255, 255, 0.08);
-  left: 50%;
-  top: 30%;
+  animation-delay: 1.3s;
+  background: radial-gradient(circle, rgba(240, 147, 251, 0.15), transparent 70%);
+  left: 45%;
+  top: 20%;
+  width: 100px;
+  height: 100px;
 }
 
 .voice-wave:nth-child(3) {
-  animation-delay: 2s;
-  background: rgba(255, 255, 255, 0.05);
-  left: 75%;
-  top: 40%;
+  animation-delay: 2.6s;
+  background: radial-gradient(circle, rgba(67, 233, 123, 0.12), transparent 70%);
+  left: 70%;
+  top: 30%;
+  width: 120px;
+  height: 120px;
 }
 
 @keyframes voiceWave {
-  0% { transform: scale(0.8); opacity: 0.7; }
-  50% { transform: scale(1.2); opacity: 0.3; }
-  100% { transform: scale(0.8); opacity: 0.7; }
+  0%, 100% { 
+    transform: scale(0.6) rotate(0deg); 
+    opacity: 0.8; 
+  }
+  33% { 
+    transform: scale(1.1) rotate(120deg); 
+    opacity: 0.4; 
+  }
+  66% { 
+    transform: scale(1.3) rotate(240deg); 
+    opacity: 0.2; 
+  }
 }
 
 .voice-content {
@@ -935,26 +956,56 @@ select.form-control {
 }
 
 .voice-icon {
-  font-size: 24px;
+  font-size: 28px;
   flex-shrink: 0;
   color: white;
-  padding: 8px;
-  background: rgba(255, 255, 255, 0.15);
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 56px;
+  height: 56px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.voice-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 50%;
 }
 
 .voice-icon.animated {
-  animation: voicePulse 2s infinite;
+  animation: voicePulse 2.5s ease-in-out infinite;
+}
+
+.voice-icon.animated::before {
+  opacity: 1;
+  animation: iconGlow 2.5s ease-in-out infinite;
 }
 
 @keyframes voicePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  0%, 100% { 
+    transform: scale(1); 
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+  50% { 
+    transform: scale(1.15); 
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes iconGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
 }
 
 @keyframes bounce {
@@ -2745,24 +2796,85 @@ select.form-control {
   line-height: 1.2;
 }
 
-/* Chatbot Integration - 414px × 80px */
+/* Enhanced Chatbot Integration */
 .chatbot-integration {
   width: 100%;
-  height: 80px;
-  background: var(--color-bg-1);
-  border: 2px solid var(--color-primary);
+  height: 90px;
+  background: linear-gradient(135deg, var(--color-bg-1), rgba(67, 233, 123, 0.05));
+  border: 2px solid transparent;
   border-radius: var(--radius-lg);
-  padding: var(--space-12) var(--space-16);
+  padding: var(--space-16) var(--space-20);
   display: flex;
   gap: var(--space-16);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1),
+              0 0 20px rgba(67, 233, 123, 0.15);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+}
+
+.chatbot-integration::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(67, 233, 123, 0.1), rgba(67, 233, 123, 0.05));
+  border-radius: var(--radius-lg);
+  padding: 2px;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.chatbot-integration:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15),
+              0 0 30px rgba(67, 233, 123, 0.25);
 }
 
 .chatbot-icon {
-  font-size: 32px;
+  font-size: 36px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #43e97b, #38f9d7);
+  border-radius: 50%;
+  color: white;
+  animation: chatbotPulse 3s ease-in-out infinite;
+  position: relative;
+}
+
+.chatbot-icon::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #43e97b, #38f9d7);
+  z-index: -1;
+  opacity: 0.3;
+  animation: chatbotRipple 3s ease-in-out infinite;
+}
+
+@keyframes chatbotPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes chatbotRipple {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.1;
+  }
 }
 
 .chatbot-content {
@@ -3214,17 +3326,18 @@ select.form-control {
 }
 
 .status-card {
-  background: var(--farmer-glass-bg);
+  background: linear-gradient(135deg, var(--farmer-glass-bg), rgba(255, 255, 255, 0.05));
   backdrop-filter: blur(20px);
   border: 1px solid var(--farmer-glass-border);
   border-radius: var(--radius-lg);
-  padding: var(--space-16);
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  padding: var(--space-20);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: pointer;
   position: relative;
   overflow: hidden;
   animation: slideInUp 0.6s ease-out;
   animation-fill-mode: both;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .status-card:nth-child(1) { animation-delay: 0.1s; }
@@ -3248,17 +3361,84 @@ select.form-control {
 }
 
 .status-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: var(--farmer-card-hover-glow);
-  background: var(--color-bg-3);
-  border-color: var(--color-success);
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1),
+              0 0 20px rgba(67, 233, 123, 0.2);
+  background: linear-gradient(135deg, var(--color-bg-3), rgba(67, 233, 123, 0.05));
+  border-color: rgba(67, 233, 123, 0.3);
 }
 
 .status-icon {
-  font-size: var(--font-size-2xl);
-  margin-bottom: var(--space-8);
+  font-size: 32px;
+  margin-bottom: var(--space-12);
   display: block;
   text-align: center;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+/* Animated status icons based on type */
+.status-card.temperature .status-icon {
+  animation: temperaturePulse 3s ease-in-out infinite;
+}
+
+.status-card.vaccination .status-icon {
+  animation: vaccinationBlink 2s ease-in-out infinite;
+}
+
+.status-card.market .status-icon {
+  animation: marketTrend 4s ease-in-out infinite;
+}
+
+.status-card.compliance .status-icon {
+  animation: complianceSpin 5s linear infinite;
+}
+
+.status-card:hover .status-icon {
+  transform: scale(1.2) rotate(5deg);
+}
+
+@keyframes temperaturePulse {
+  0%, 100% { 
+    transform: scale(1); 
+    filter: hue-rotate(0deg);
+  }
+  50% { 
+    transform: scale(1.1); 
+    filter: hue-rotate(20deg);
+  }
+}
+
+@keyframes vaccinationBlink {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: scale(1.05);
+  }
+}
+
+@keyframes marketTrend {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  25% { 
+    transform: translateY(-3px); 
+  }
+  75% { 
+    transform: translateY(2px); 
+  }
+}
+
+@keyframes complianceSpin {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  100% { 
+    transform: rotate(360deg); 
+  }
 }
 
 .status-info h3 {

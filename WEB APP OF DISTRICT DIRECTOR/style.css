@@ -79,11 +79,10 @@
   --color-warning-rgb: 168, 75, 47;
   --color-info-rgb: 98, 108, 113;
 
-  /* Typography */
-  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
-    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo,
-    Monaco, Consolas, monospace;
+  /* Typography - Updated to use unified design system */
+  --font-family-base: var(--font-family-sans);
+  --font-family-mono: var(--font-family-mono);
+  --font-family-display: var(--font-family-display);
   --font-size-xs: 11px;
   --font-size-sm: 12px;
   --font-size-base: 14px;
@@ -132,10 +131,10 @@
   --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15),
     inset 0 -1px 0 rgba(0, 0, 0, 0.03);
 
-  /* Animation */
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Animation - Updated to use unified design system */
+  --duration-fast: var(--duration-150);
+  --duration-normal: var(--duration-300);
+  --ease-standard: var(--ease-out);
 
   /* Layout */
   --container-sm: 640px;
@@ -915,17 +914,36 @@ select.form-control {
   transition: all var(--duration-normal) var(--ease-standard);
   position: relative;
   z-index: 2;
+  overflow: hidden;
+}
+
+.tab-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(var(--color-primary), 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.tab-button:hover::before {
+  left: 100%;
 }
 
 .tab-button.active {
   color: var(--color-text);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-sm);
+  background: linear-gradient(135deg, var(--color-surface), rgba(var(--color-primary), 0.05));
+  box-shadow: 0 2px 12px rgba(var(--color-primary), 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
 }
 
 .tab-button:hover:not(.active) {
-  background: rgba(var(--color-primary-rgb), 0.1);
+  background: rgba(var(--color-primary), 0.08);
   color: var(--color-text);
+  transform: translateY(-1px);
 }
 
 .tab-indicator {
@@ -974,17 +992,22 @@ select.form-control {
 
 .summary-card {
   background: linear-gradient(135deg, 
-    rgba(var(--color-teal-500-rgb), 0.05),
-    rgba(var(--color-teal-300-rgb), 0.02));
-  border: 1px solid rgba(var(--color-primary-rgb), 0.1);
+    rgba(var(--color-teal-500-rgb), 0.08),
+    rgba(var(--color-teal-300-rgb), 0.04),
+    rgba(var(--color-primary), 0.02));
+  border: 1px solid rgba(var(--color-primary), 0.15);
   position: relative;
   overflow: hidden;
-  transition: transform var(--duration-normal) var(--ease-standard);
+  transition: all var(--duration-normal) var(--ease-standard);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(var(--color-primary), 0.08);
 }
 
 .summary-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(var(--color-primary), 0.2), 
+              0 0 20px rgba(var(--color-primary), 0.1);
+  border-color: rgba(var(--color-primary), 0.3);
 }
 
 .summary-card::before {
@@ -1235,13 +1258,16 @@ select.form-control {
 }
 
 .incident-card {
-  background: var(--color-surface);
+  background: linear-gradient(135deg, var(--color-surface), rgba(var(--color-surface), 0.95));
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius-lg);
   padding: var(--space-20);
   transition: all var(--duration-normal) var(--ease-standard);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
 }
 
 .incident-card::before {
@@ -1251,23 +1277,135 @@ select.form-control {
   left: 0;
   width: 4px;
   height: 100%;
+  transition: all var(--duration-normal) var(--ease-standard);
 }
 
 .incident-card.priority-critical::before {
-  background: var(--color-error);
+  background: linear-gradient(180deg, var(--color-error), rgba(var(--color-error), 0.7));
+  box-shadow: 0 0 8px rgba(var(--color-error), 0.4);
+  animation: priorityPulse 2s ease-in-out infinite;
 }
 
 .incident-card.priority-high::before {
-  background: var(--color-warning);
+  background: linear-gradient(180deg, var(--color-warning), rgba(var(--color-warning), 0.7));
+  box-shadow: 0 0 6px rgba(var(--color-warning), 0.3);
 }
 
 .incident-card.priority-medium::before {
-  background: var(--color-info);
+  background: linear-gradient(180deg, var(--color-info), rgba(var(--color-info), 0.7));
 }
 
 .incident-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 
+              0 0 20px rgba(var(--color-primary), 0.1);
+  border-color: rgba(var(--color-primary), 0.2);
+}
+
+.incident-card:hover::before {
+  width: 6px;
+}
+
+@keyframes priorityPulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(var(--color-error), 0.4);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 12px rgba(var(--color-error), 0.6);
+  }
+}
+
+/* Enhanced Map Styles */
+.district-map {
+  height: 400px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.map-marker {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.map-marker:hover {
+  transform: scale(1.2);
+  z-index: 1000;
+}
+
+.map-marker.high-risk {
+  background: var(--color-error);
+  animation: markerPulse 2s ease-in-out infinite;
+}
+
+.map-marker.medium-risk {
+  background: var(--color-warning);
+  animation: markerBlink 3s ease-in-out infinite;
+}
+
+.map-marker.low-risk {
+  background: var(--color-success);
+}
+
+.map-marker.no-risk {
+  background: var(--color-info);
+}
+
+.map-marker::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-standard);
+}
+
+.map-marker.high-risk::before {
+  background: rgba(var(--color-error), 0.3);
+  animation: rippleEffect 2s ease-in-out infinite;
+}
+
+@keyframes markerPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 4px 16px rgba(var(--color-error), 0.5);
+  }
+}
+
+@keyframes markerBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes rippleEffect {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.5);
+  }
 }
 
 .incident-header {
